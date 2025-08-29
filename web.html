@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Channakeshava Reddy - Data Scientist Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a192f;
+            color: #ccd6f6;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .section-fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .section-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .neon-text {
+            color: #64ffda;
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #64ffda;
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(100, 255, 218, 0.1), 0 4px 6px -2px rgba(100, 255, 218, 0.05);
+        }
+        #skill-sphere-container {
+            cursor: grab;
+            height: 500px; /* Give a fixed height to the container */
+        }
+        .char {
+            display: inline-block;
+            transform-origin: bottom;
+        }
+        @keyframes flip-in-kf {
+            from {
+                transform: perspective(400px) rotateX(90deg);
+                opacity: 0;
+            }
+            to {
+                transform: perspective(400px) rotateX(0deg);
+                opacity: 1;
+            }
+        }
+        .animate-in {
+            animation: flip-in-kf 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        @keyframes flip-out-kf {
+            from {
+                transform: perspective(400px) rotateX(0deg);
+                opacity: 1;
+            }
+            to {
+                transform: perspective(400px) rotateX(-90deg);
+                opacity: 0;
+            }
+        }
+        .animate-out {
+            animation: flip-out-kf 0.5s cubic-bezier(0.55, 0.06, 0.68, 0.19) forwards;
+        }
+    </style>
+</head>
+<body class="antialiased leading-relaxed">
+
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-effect">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold neon-text">CR</a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <a href="channakeshavareddy_ Aspiring_Data_scientist.pdf" target="_blank" class="px-4 py-2 border border-neon-text text-neon-text rounded-md hover:bg-neon-text hover:bg-opacity-10 transition-colors duration-300">Resume</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden">
+                <i data-feather="menu" class="text-neon-text"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#about" class="block py-2 nav-link">About</a>
+            <a href="#experience" class="block py-2 nav-link">Experience</a>
+            <a href="#projects" class="block py-2 nav-link">Projects</a>
+            <a href="#skills" class="block py-2 nav-link">Skills</a>
+            <a href="#contact" class="block py-2 nav-link">Contact</a>
+            <a href="channakeshavareddy_ Aspiring_Data_scientist.pdf" target="_blank" class="block mt-2 px-4 py-2 border border-neon-text text-neon-text rounded-md hover:bg-neon-text hover:bg-opacity-10 transition-colors duration-300 text-center">Resume</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 pt-24">
+
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-screen flex flex-col justify-center items-center text-center section-fade-in">
+            <div class="max-w-4xl">
+                <p class="text-lg neon-text mb-4">Hi, my name is</p>
+                <h1 class="text-4xl md:text-7xl font-bold text-slate-100">Channakeshava Reddy.</h1>
+                <h2 class="text-4xl md:text-7xl font-bold text-slate-400 mt-2">I build things with data.</h2>
+                <div class="h-12 md:h-16 mt-4 flex justify-center items-center">
+                    <p class="text-xl md:text-2xl text-slate-300">
+                        Open to <span id="animated-role" class="neon-text font-semibold inline-block min-w-[10rem] md:min-w-[12rem] text-left"></span> roles.
+                    </p>
+                </div>
+                <p class="mt-6 max-w-2xl text-slate-400">
+                    I'm an aspiring Data Scientist with hands-on experience in predictive modeling, machine learning deployment, and data-driven decision-making. I'm passionate about applying my technical skills to drive impactful solutions.
+                </p>
+                <div class="mt-8 flex items-center space-x-6 justify-center">
+                    <a href="https://www.linkedin.com/in/channakeshava-reddy" target="_blank" class="text-slate-400 hover:text-neon-text transition-colors"><i data-feather="linkedin" class="w-6 h-6"></i></a>
+                    <a href="https://github.com/KESHAVACHINNA" target="_blank" class="text-slate-400 hover:text-neon-text transition-colors"><i data-feather="github" class="w-6 h-6"></i></a>
+                    <a href="mailto:channakeshavareddywork@gmail.com" class="text-slate-400 hover:text-neon-text transition-colors"><i data-feather="mail" class="w-6 h-6"></i></a>
+                </div>
+                <div class="mt-12">
+                    <a href="#projects" class="px-8 py-4 bg-neon-text text-slate-900 font-semibold rounded-md hover:bg-opacity-80 transition-all">Check out my projects!</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 section-fade-in">
+            <h2 class="text-3xl font-bold text-slate-100 mb-8 text-center"><span class="neon-text">01.</span> About Me</h2>
+            <div class="grid md:grid-cols-5 gap-10 max-w-5xl mx-auto">
+                <div class="md:col-span-3 text-slate-400 space-y-4">
+                    <p>
+                        Hello! I'm Channakeshava, an aspiring Data Scientist currently pursuing a Bachelor of Technology in Artificial Intelligence and Data Science from RNS Institute of Technology. I have a strong foundation in machine learning, deep learning, and data analysis, with hands-on experience developing predictive models and deploying them.
+                    </p>
+                    <p>
+                        My journey into the world of data science began with a curiosity for uncovering hidden patterns in data and has since grown into a passion for building intelligent systems that solve real-world problems. I enjoy the entire data science lifecycle, from cleaning and exploring data to building and evaluating complex models.
+                    </p>
+                    <p>
+                        I'm always eager to learn new technologies and methodologies to enhance my skills and contribute to impactful projects. When I'm not working with data, you might find me exploring the latest advancements in AI or collaborating on open-source projects.
+                    </p>
+                </div>
+                <div class="md:col-span-2 flex justify-center items-start">
+                    <div class="w-64 h-64 rounded-lg bg-gray-800 relative group">
+                        <div class="absolute inset-0 bg-cover bg-center rounded-lg z-10 group-hover:-translate-x-2 group-hover:-translate-y-2 transition-transform duration-300" style="background-image: url('https://placehold.co/400x400/0a192f/64ffda?text=CR')"></div>
+                        <div class="absolute inset-0 border-2 border-neon-text rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="py-20 section-fade-in">
+             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 text-center">
+                <div class="glass-effect p-6 rounded-lg card-hover">
+                    <h3 class="text-3xl font-bold neon-text mb-2">15+</h3>
+                    <p class="text-slate-400 text-sm">Completed Projects</p>
+                </div>
+                <div class="glass-effect p-6 rounded-lg card-hover">
+                    <h3 class="text-3xl font-bold neon-text mb-2">10+</h3>
+                    <p class="text-slate-400 text-sm">Open Source Contributions</p>
+                </div>
+                <div class="glass-effect p-6 rounded-lg card-hover">
+                    <h3 class="text-3xl font-bold neon-text mb-2">5+</h3>
+                    <p class="text-slate-400 text-sm">Live Demos</p>
+                </div>
+                <div class="glass-effect p-6 rounded-lg card-hover">
+                    <h3 class="text-3xl font-bold neon-text mb-2">100K+</h3>
+                    <p class="text-slate-400 text-sm">Records Analyzed</p>
+                </div>
+                <div class="glass-effect p-6 rounded-lg card-hover col-span-2 md:col-span-1 lg:col-span-1">
+                    <h3 class="text-3xl font-bold neon-text mb-2">95%</h3>
+                    <p class="text-slate-400 text-sm">Top Model Accuracy</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-20 section-fade-in">
+            <h2 class="text-3xl font-bold text-slate-100 mb-8 text-center"><span class="neon-text">02.</span> Where I've Worked</h2>
+            <div class="max-w-3xl mx-auto">
+                <div class="relative border-l-2 border-slate-700 pl-8">
+                    <div class="absolute -left-1.5 top-1 w-3 h-3 bg-neon-text rounded-full"></div>
+                    <div class="mb-12">
+                        <h3 class="text-xl font-semibold text-slate-100">Data Science Intern</h3>
+                        <p class="text-neon-text mb-2">Unified Mentor <span class="text-slate-500 font-mono">| Feb 2025 - Apr 2025</span></p>
+                        <ul class="list-disc list-inside text-slate-400 space-y-2">
+                            <li>Developed a machine learning model using Logistic Regression to predict employee attrition, achieving 85% model accuracy.</li>
+                            <li>Performed data cleaning, feature engineering, and model evaluation using Python (Pandas, Scikit-learn).</li>
+                            <li>Visualized key insights using Matplotlib and Seaborn to assist HR decision-making.</li>
+                            <li>Documented the project workflow and results for internal stakeholders.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 section-fade-in">
+            <h2 class="text-3xl font-bold text-slate-100 mb-8 text-center"><span class="neon-text">03.</span> Things I've Built</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Project 1 -->
+                <div class="rounded-lg p-6 flex flex-col justify-between card-hover" style="background: linear-gradient(rgba(10, 25, 47, 0.95), rgba(10, 25, 47, 0.95)), url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80' width='80' height='80'%3e%3crect width='80' height='80' fill='%230a192f'/%3e%3g fill='%2364ffda' fill-opacity='0.1'%3e%3ccircle cx='40' cy='40' r='35'/%3e%3ccircle cx='40' cy='40' r='25'/%3e%3ccircle cx='40' cy='40' r='15'/%3e%3c/g%3e%3c/svg%3e&quot;);">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <i data-feather="film" class="text-neon-text"></i>
+                             <a href="https://github.com/KESHAVACHINNA" target="_blank" class="text-slate-400 hover:text-neon-text transition-colors"><i data-feather="github" class="w-6 h-6"></i></a>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-100 mb-2">Movie Recommendation System</h3>
+                        <p class="text-slate-400 text-sm mb-4">Designed a recommendation engine that improved movie relevance by 35%. Processed 100,000+ movies & user ratings.</p>
+                    </div>
+                    <div class="text-xs text-slate-500 font-mono mt-4">Python, SQL, PCA, TensorFlow</div>
+                </div>
+                <!-- Project 2 -->
+                <div class="rounded-lg p-6 flex flex-col justify-between card-hover" style="background: linear-gradient(rgba(10, 25, 47, 0.95), rgba(10, 25, 47, 0.95)), url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='100' height='100'%3e%3crect width='100' height='100' fill='%230a192f'/%3e%3cpath d='M 0 50 Q 25 25, 50 50 T 100 50' stroke='%2364ffda' stroke-width='2' fill='none' opacity='0.1'/%3e%3cpath d='M 0 60 Q 25 35, 50 60 T 100 60' stroke='%2364ffda' stroke-width='2' fill='none' opacity='0.1'/%3e%3c/svg%3e&quot;);">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <i data-feather="users" class="text-neon-text"></i>
+                            <a href="https://github.com/KESHAVACHINNA" target="_blank" class="text-slate-400 hover:text-neon-text transition-colors"><i data-feather="github" class="w-6 h-6"></i></a>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-100 mb-2">Customer Churn Prediction</h3>
+                        <p class="text-slate-400 text-sm mb-4">Built predictive models with 82% accuracy. Analyzed 50,000+ customer records for churn indicators.</p>
+                    </div>
+                    <div class="text-xs text-slate-500 font-mono mt-4">Python, Pandas, Scikit-learn</div>
+                </div>
+                <!-- Project 3 -->
+                <div class="rounded-lg p-6 flex flex-col justify-between card-hover" style="background: linear-gradient(rgba(10, 25, 47, 0.95), rgba(10, 25, 47, 0.95)), url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3e%3crect width='40' height='40' fill='%230a192f'/%3e%3cg fill='%2364ffda' fill-opacity='0.1'%3e%3ccircle cx='10' cy='10' r='3'/%3e%3ccircle cx='30' cy='10' r='3'/%3e%3ccircle cx='10' cy='30' r='3'/%3e%3ccircle cx='30' cy='30' r='3'/%3e%3c/g%3e%3c/svg%3e&quot;);">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <i data-feather="image" class="text-neon-text"></i>
+                           <a href="https://github.com/KESHAVACHINNA" target="_blank" class="text-slate-400 hover:text-neon-text transition-colors"><i data-feather="github" class="w-6 h-6"></i></a>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-100 mb-2">Image Caption Generator</h3>
+                        <p class="text-slate-400 text-sm mb-4">End-to-end image captioning system generating descriptive captions. Combined pretrained CNN with LSTM language model.</p>
+                    </div>
+                    <div class="text-xs text-slate-500 font-mono mt-4">Python, TensorFlow, Keras, CNN, LSTM</div>
+                </div>
+                 <!-- Project 4 -->
+                <div class="rounded-lg p-6 flex flex-col justify-between card-hover" style="background: linear-gradient(rgba(10, 25, 47, 0.95), rgba(10, 25, 47, 0.95)), url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3e%3crect width='50' height='50' fill='%230a192f'/%3e%3cpath d='M10 10 L40 40 M40 10 L10 40' stroke='%2364ffda' stroke-width='2' fill='none' opacity='0.1'/%3e%3c/svg%3e&quot;);">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <i data-feather="credit-card" class="text-neon-text"></i>
+                             <a href="https://github.com/KESHAVACHINNA" target="_blank" class="text-slate-400 hover:text-neon-text transition-colors"><i data-feather="github" class="w-6 h-6"></i></a>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-100 mb-2">Fraud Detection</h3>
+                        <p class="text-slate-400 text-sm mb-4">Built ensemble ML models to detect fraudulent transactions with ROC-AUC >0.95. Handled class imbalance with SMOTE.</p>
+                    </div>
+                    <div class="text-xs text-slate-500 font-mono mt-4">Python, Scikit-learn, SMOTE</div>
+                </div>
+                 <!-- Project 5 -->
+                <div class="rounded-lg p-6 flex flex-col justify-between card-hover" style="background: linear-gradient(rgba(10, 25, 47, 0.95), rgba(10, 25, 47, 0.95)), url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3e%3crect width='60' height='60' fill='%230a192f'/%3e%3cpath d='M20 30 H40 M30 20 V40' stroke='%2364ffda' stroke-width='3' fill='none' opacity='0.1'/%3e%3c/svg%3e&quot;);">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                           <i data-feather="heart" class="text-neon-text"></i>
+                             <a href="https://github.com/KESHAVACHINNA" target="_blank" class="text-slate-400 hover:text-neon-text transition-colors"><i data-feather="github" class="w-6 h-6"></i></a>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-100 mb-2">Medical Image Classification</h3>
+                        <p class="text-slate-400 text-sm mb-4">Trained CNNs for X-ray classification achieving >90% accuracy. Applied Grad-CAM for model interpretability.</p>
+                    </div>
+                    <div class="text-xs text-slate-500 font-mono mt-4">Python, TensorFlow, Keras, CNN, Grad-CAM</div>
+                </div>
+                 <!-- Project 6 -->
+                <div class="rounded-lg p-6 flex flex-col justify-between card-hover" style="background: linear-gradient(rgba(10, 25, 47, 0.95), rgba(10, 25, 47, 0.95)), url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3e%3crect width='80' height='80' fill='%230a192f'/%3e%3cg stroke='%2364ffda' stroke-width='1' opacity='0.1'%3e%3cpath d='M10 20 L20 10 L30 30 L40 20 L50 40 L60 30 L70 50' fill='none'/%3e%3cpath d='M10 60 L20 50 L30 70 L40 60 L50 80 L60 70 L70 90' fill='none' transform='translate(0, -20)'/%3e%3c/g%3e%3c/svg%3e&quot;);">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <i data-feather="trending-up" class="text-neon-text"></i>
+                             <a href="https://github.com/KESHAVACHINNA" target="_blank" class="text-slate-400 hover:text-neon-text transition-colors"><i data-feather="github" class="w-6 h-6"></i></a>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-100 mb-2">Stock Price Prediction</h3>
+                        <p class="text-slate-400 text-sm mb-4">Developed ARIMA and LSTM models to forecast stock prices. Built interactive dashboards; achieved <5% MAE.</p>
+                    </div>
+                    <div class="text-xs text-slate-500 font-mono mt-4">Python, ARIMA, LSTM, Pandas, Dashboards</div>
+                </div>
+                <!-- Project 7 -->
+                <div class="rounded-lg p-6 flex flex-col justify-between card-hover" style="background: linear-gradient(rgba(10, 25, 47, 0.95), rgba(10, 25, 47, 0.95)), url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3e%3crect width='100' height='100' fill='%230a192f'/%3e%3cpath d='M50 0 L61.8 38.2 L100 38.2 L69.1 61.8 L80.9 100 L50 76.4 L19.1 100 L30.9 61.8 L0 38.2 L38.2 38.2 Z' fill='%2364ffda' opacity='0.05'/%3e%3c/svg%3e&quot;);">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <i data-feather="database" class="text-neon-text"></i>
+                             <a href="https://github.com/KESHAVACHINNA" target="_blank" class="text-slate-400 hover:text-neon-text transition-colors"><i data-feather="github" class="w-6 h-6"></i></a>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-100 mb-2">Automated ESG Data Quality & Anomaly Detector</h3>
+                        <p class="text-slate-400 text-sm mb-4">Processed 10,000+ ESG records and implemented an Isolation Forest model to detect anomalies with 95% accuracy, reducing manual review time by 70%.</p>
+                    </div>
+                    <div class="text-xs text-slate-500 font-mono mt-4">Python, Pandas, Scikit-learn, Isolation Forest</div>
+                </div>
+                 <!-- Project 8 -->
+                <div class="rounded-lg p-6 flex flex-col justify-between card-hover" style="background: linear-gradient(rgba(10, 25, 47, 0.95), rgba(10, 25, 47, 0.95)), url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3e%3crect width='100' height='100' fill='%230a192f'/%3e%3cg fill='%2364ffda' fill-opacity='0.1'%3e%3ccircle cx='50' cy='50' r='40'/%3e%3ccircle cx='30' cy='30' r='10'/%3e%3ccircle cx='70' cy='30' r='10'/%3e%3ccircle cx='50' cy='70' r='15'/%3e%3c/g%3e%3c/svg%3e&quot;);">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <i data-feather="aperture" class="text-neon-text"></i>
+                             <a href="https://github.com/KESHAVACHINNA" target="_blank" class="text-slate-400 hover:text-neon-text transition-colors"><i data-feather="github" class="w-6 h-6"></i></a>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-100 mb-2">Dog Breed Identification</h3>
+                        <p class="text-slate-400 text-sm mb-4">A deep learning model to identify 120+ dog breeds from images using transfer learning with MobileNetV2.</p>
+                    </div>
+                    <div class="text-xs text-slate-500 font-mono mt-4">Python, TensorFlow, Keras, CNN</div>
+                </div>
+                 <!-- Project 9 -->
+                <div class="rounded-lg p-6 flex flex-col justify-between card-hover" style="background: linear-gradient(rgba(10, 25, 47, 0.95), rgba(10, 25, 47, 0.95)), url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3e%3crect width='100' height='100' fill='%230a192f'/%3e%3cg stroke='%2364ffda' stroke-width='0.5' opacity='0.1'%3e%3ccircle cx='25' cy='25' r='5' fill='none'/%3e%3ccircle cx='75' cy='25' r='5' fill='none'/%3e%3ccircle cx='25' cy='75' r='5' fill='none'/%3e%3ccircle cx='75' cy='75' r='5' fill='none'/%3e%3cpath d='M25 25 L75 75 M75 25 L25 75'/%3e%3c/g%3e%3c/svg%3e&quot;);">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <i data-feather="bar-chart-2" class="text-neon-text"></i>
+                             <a href="https://github.com/KESHAVACHINNA" target="_blank" class="text-slate-400 hover:text-neon-text transition-colors"><i data-feather="github" class="w-6 h-6"></i></a>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-100 mb-2">ml_interpret</h3>
+                        <p class="text-slate-400 text-sm mb-4">A toolkit for ML model interpretability, providing insights into predictions using techniques like SHAP and LIME.</p>
+                    </div>
+                    <div class="text-xs text-slate-500 font-mono mt-4">Python, SHAP, LIME, Scikit-learn</div>
+                </div>
+                 <!-- Project 10 -->
+                <div class="rounded-lg p-6 flex flex-col justify-between card-hover" style="background: linear-gradient(rgba(10, 25, 47, 0.95), rgba(10, 25, 47, 0.95)), url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3e%3crect width='100' height='100' fill='%230a192f'/%3e%3cpath d='M10 50 C 30 20, 70 20, 90 50 S 110 80, 130 50' stroke='%2364ffda' stroke-width='2' fill='none' opacity='0.1'/%3e%3c/svg%3e&quot;);">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <i data-feather="message-circle" class="text-neon-text"></i>
+                             <a href="https://github.com/KESHAVACHINNA" target="_blank" class="text-slate-400 hover:text-neon-text transition-colors"><i data-feather="github" class="w-6 h-6"></i></a>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-100 mb-2">BEAN - AI Assistant</h3>
+                        <p class="text-slate-400 text-sm mb-4">A conversational AI assistant designed to answer questions and perform tasks, built using natural language processing.</p>
+                    </div>
+                    <div class="text-xs text-slate-500 font-mono mt-4">Python, NLP, Transformers, Flask</div>
+                </div>
+                 <!-- Project 11 -->
+                <div class="rounded-lg p-6 flex flex-col justify-between card-hover" style="background: linear-gradient(rgba(10, 25, 47, 0.95), rgba(10, 25, 47, 0.95)), url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3e%3crect width='100' height='100' fill='%230a192f'/%3e%3cg stroke='%2364ffda' stroke-width='2' opacity='0.1'%3e%3ccircle cx='50' cy='50' r='45' fill='none'/%3e%3ccircle cx='50' cy='50' r='35' fill='none'/%3e%3ccircle cx='50' cy='50' r='25' fill='none'/%3e%3ccircle cx='50' cy='50' r='15' fill='none'/%3e%3c/g%3e%3c/svg%3e&quot;);">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <i data-feather="dollar-sign" class="text-neon-text"></i>
+                             <a href="https://github.com/KESHAVACHINNA" target="_blank" class="text-slate-400 hover:text-neon-text transition-colors"><i data-feather="github" class="w-6 h-6"></i></a>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-100 mb-2">Sales Lead Scoring Model</h3>
+                        <p class="text-slate-400 text-sm mb-4">Built a logistic regression model to score and rank sales leads based on their likelihood to convert.</p>
+                    </div>
+                    <div class="text-xs text-slate-500 font-mono mt-4">Python, Scikit-learn, Pandas</div>
+                </div>
+                 <!-- Project 12 -->
+                <div class="rounded-lg p-6 flex flex-col justify-between card-hover" style="background: linear-gradient(rgba(10, 25, 47, 0.95), rgba(10, 25, 47, 0.95)), url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3e%3crect width='100' height='100' fill='%230a192f'/%3e%3cg stroke='%2364ffda' stroke-width='1' opacity='0.1'%3e%3crect x='10' y='10' width='80' height='80' fill='none'/%3e%3crect x='20' y='20' width='60' height='60' fill='none'/%3e%3crect x='30' y='30' width='40' height='40' fill='none'/%3e%3c/g%3e%3c/svg%3e&quot;);">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <i data-feather="shield" class="text-neon-text"></i>
+                             <a href="https://github.com/KESHAVACHINNA" target="_blank" class="text-slate-400 hover:text-neon-text transition-colors"><i data-feather="github" class="w-6 h-6"></i></a>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-100 mb-2">Network Intrusion Detection</h3>
+                        <p class="text-slate-400 text-sm mb-4">Applied anomaly detection algorithms (Isolation Forest) to identify malicious activities in network traffic data.</p>
+                    </div>
+                    <div class="text-xs text-slate-500 font-mono mt-4">Python, Scikit-learn, Pandas</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20 section-fade-in">
+            <h2 class="text-3xl font-bold text-slate-100 mb-12 text-center"><span class="neon-text">04.</span> Skills & Technologies</h2>
+            <div id="skill-sphere-container" class="w-full relative mb-16">
+                <canvas id="skill-sphere"></canvas>
+            </div>
+            <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-slate-400">
+                <div class="glass-effect p-6 rounded-lg card-hover">
+                    <div class="flex items-center mb-3">
+                        <i data-feather="code" class="w-6 h-6 mr-3 neon-text"></i>
+                        <h3 class="font-bold text-lg text-slate-100">Languages</h3>
+                    </div>
+                    <p class="text-sm">Python, SQL, R, Bash</p>
+                </div>
+                <div class="glass-effect p-6 rounded-lg card-hover">
+                    <div class="flex items-center mb-3">
+                        <i data-feather="bar-chart-2" class="w-6 h-6 mr-3 neon-text"></i>
+                        <h3 class="font-bold text-lg text-slate-100">Data Analysis</h3>
+                    </div>
+                    <p class="text-sm">Pandas, NumPy, Matplotlib, Seaborn</p>
+                </div>
+                 <div class="glass-effect p-6 rounded-lg card-hover">
+                    <div class="flex items-center mb-3">
+                        <i data-feather="cpu" class="w-6 h-6 mr-3 neon-text"></i>
+                        <h3 class="font-bold text-lg text-slate-100">Machine Learning</h3>
+                    </div>
+                    <p class="text-sm">Scikit-learn, XGBoost, Random Forest, SVM</p>
+                </div>
+                <div class="glass-effect p-6 rounded-lg card-hover">
+                    <div class="flex items-center mb-3">
+                        <i data-feather="share-2" class="w-6 h-6 mr-3 neon-text"></i>
+                        <h3 class="font-bold text-lg text-slate-100">Deep Learning</h3>
+                    </div>
+                    <p class="text-sm">TensorFlow, Keras, CNN, LSTM, Transformers</p>
+                </div>
+                <div class="glass-effect p-6 rounded-lg card-hover">
+                    <div class="flex items-center mb-3">
+                        <i data-feather="cloud" class="w-6 h-6 mr-3 neon-text"></i>
+                        <h3 class="font-bold text-lg text-slate-100">Deployment</h3>
+                    </div>
+                    <p class="text-sm">Flask, Streamlit, Firebase, Docker</p>
+                </div>
+                <div class="glass-effect p-6 rounded-lg card-hover">
+                    <div class="flex items-center mb-3">
+                        <i data-feather="terminal" class="w-6 h-6 mr-3 neon-text"></i>
+                        <h3 class="font-bold text-lg text-slate-100">Tools</h3>
+                    </div>
+                    <p class="text-sm">Git, GitHub, Jupyter, VS Code, Google Colab</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 text-center section-fade-in">
+            <h2 class="text-3xl font-bold text-slate-100 mb-4"><span class="neon-text">05.</span> Get In Touch</h2>
+            <p class="max-w-xl mx-auto text-slate-400 mb-8">
+                My inbox is always open. Whether you have a question, a potential opportunity, or just want to say hi, I'll do my best to get back to you!
+            </p>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-8">
+                <div class="flex items-center gap-3 text-slate-400">
+                    <i data-feather="mail" class="text-neon-text"></i>
+                    <span>channakeshavareddywork@gmail.com</span>
+                </div>
+                <div class="flex items-center gap-3 text-slate-400">
+                     <i data-feather="phone" class="text-neon-text"></i>
+                    <span>+91 7795017590</span>
+                </div>
+            </div>
+            <a href="mailto:channakeshavareddywork@gmail.com" class="inline-block px-8 py-4 border border-neon-text text-neon-text rounded-md hover:bg-neon-text hover:bg-opacity-10 transition-colors duration-300">
+                Say Hello
+            </a>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-6 text-center text-slate-500 text-sm">
+        <div class="flex justify-center space-x-4 mb-4 md:hidden">
+            <a href="https://www.linkedin.com/in/channakeshava-reddy" target="_blank" class="text-slate-400 hover:text-neon-text transition-colors"><i data-feather="linkedin" class="w-6 h-6"></i></a>
+            <a href="https://github.com/KESHAVACHINNA" target="_blank" class="text-slate-400 hover:text-neon-text transition-colors"><i data-feather="github" class="w-6 h-6"></i></a>
+            <a href="mailto:channakeshavareddywork@gmail.com" class="text-slate-400 hover:text-neon-text transition-colors"><i data-feather="mail" class="w-6 h-6"></i></a>
+        </div>
+        <p>Designed & Built by Channakeshava Reddy</p>
+        <p>&copy; 2025</p>
+    </footer>
+
+
+    <script>
+        // Feather Icons
+        feather.replace();
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+        let lastScrollY = window.scrollY;
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('py-2');
+                header.classList.remove('py-4');
+                if (lastScrollY < window.scrollY) {
+                    header.style.transform = 'translateY(-100%)';
+                } else {
+                    header.style.transform = 'translateY(0)';
+                }
+            } else {
+                header.classList.remove('py-2');
+                header.classList.add('py-4');
+                header.style.transform = 'translateY(0)';
+            }
+            lastScrollY = window.scrollY;
+        });
+        
+        // Section Fade-in Animation
+        const sections = document.querySelectorAll('.section-fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    if(entry.target.id === 'skills') {
+                        initSkillSphere();
+                    }
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Active Nav Link on scroll
+        const navLinks = document.querySelectorAll('.nav-link');
+        const allSections = document.querySelectorAll('section');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            allSections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+         window.dispatchEvent(new Event('scroll'));
+
+        // Three.js Skill Sphere
+        let scene, camera, renderer, skillGroup, stars;
+        let isSphereInitialized = false;
+
+        const skills = [
+            'Python', 'SQL', 'R', 'Pandas', 'NumPy', 'Matplotlib', 
+            'Scikit-learn', 'TensorFlow', 'Keras', 'XGBoost', 'Seaborn',
+            'Flask', 'Streamlit', 'Docker', 'Git', 'GitHub', 'Firebase',
+            'CNN', 'LSTM', 'Transformers', 'SVM', 'PCA'
+        ];
+
+        function createSkillSprite(text) {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            const fontSize = 40;
+            context.font = `bold ${fontSize}px Inter`;
+            
+            const textWidth = context.measureText(text).width;
+            canvas.width = textWidth + 20;
+            canvas.height = fontSize + 10;
+            
+            context.font = `bold ${fontSize}px Inter`;
+            context.fillStyle = '#64ffda';
+            context.textAlign = 'center';
+            context.textBaseline = 'middle';
+            context.fillText(text, canvas.width / 2, canvas.height / 2);
+            
+            const texture = new THREE.CanvasTexture(canvas);
+            const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
+            const sprite = new THREE.Sprite(material);
+            
+            sprite.scale.set(canvas.width / 50, canvas.height / 50, 1);
+            return sprite;
+        }
+
+
+        function initSkillSphere() {
+            if (isSphereInitialized) return;
+            isSphereInitialized = true;
+            
+            const canvas = document.getElementById('skill-sphere');
+            const container = document.getElementById('skill-sphere-container');
+
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.z = 18;
+
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            // Create Starfield
+            const starGeometry = new THREE.BufferGeometry();
+            const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.05, transparent: true, opacity: 0.5 });
+            const starVertices = [];
+            for (let i = 0; i < 10000; i++) {
+                const x = (Math.random() - 0.5) * 200;
+                const y = (Math.random() - 0.5) * 200;
+                const z = (Math.random() - 0.5) * 150;
+                starVertices.push(x, y, z);
+            }
+            starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+            stars = new THREE.Points(starGeometry, starMaterial);
+            scene.add(stars);
+
+            // Create Skills Group
+            skillGroup = new THREE.Group();
+            scene.add(skillGroup);
+
+            const radius = 10;
+            const points = [];
+            for (let i = 0; i < skills.length; i++) {
+                const phi = Math.acos(-1 + (2 * i) / (skills.length - 1));
+                const theta = Math.sqrt(skills.length * Math.PI) * phi;
+
+                const x = radius * Math.cos(theta) * Math.sin(phi);
+                const y = radius * Math.sin(theta) * Math.sin(phi);
+                const z = radius * Math.cos(phi);
+                
+                const skillSprite = createSkillSprite(skills[i]);
+                skillSprite.position.set(x, y, z);
+                skillGroup.add(skillSprite);
+                points.push(new THREE.Vector3(x, y, z));
+            }
+
+            // Create connecting lines
+            const linePoints = [];
+            for(let i = 0; i < points.length; i++) {
+                for(let j = i + 1; j < points.length; j++) {
+                    const p1 = points[i];
+                    const p2 = points[j];
+                    const distance = p1.distanceTo(p2);
+                    if (distance < 6) { // Adjust threshold for more/fewer lines
+                        linePoints.push(p1, p2);
+                    }
+                }
+            }
+            const lineGeometry = new THREE.BufferGeometry().setFromPoints(linePoints);
+            const lineMaterial = new THREE.LineBasicMaterial({ color: 0x64ffda, transparent: true, opacity: 0.15 });
+            const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
+            skillGroup.add(lines);
+
+            // Mouse Interaction
+            let isDragging = false;
+            let previousMousePosition = { x: 0, y: 0 };
+            
+            container.addEventListener('mousedown', () => isDragging = true);
+            container.addEventListener('mouseup', () => isDragging = false);
+            container.addEventListener('mouseleave', () => isDragging = false);
+            container.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    const deltaMove = { x: e.offsetX - previousMousePosition.x, y: e.offsetY - previousMousePosition.y };
+                    skillGroup.rotation.y += deltaMove.x * 0.005;
+                    skillGroup.rotation.x += deltaMove.y * 0.005;
+                }
+                previousMousePosition = { x: e.offsetX, y: e.offsetY };
+            });
+
+            // Animation Loop
+            const animate = () => {
+                requestAnimationFrame(animate);
+                if (!isDragging) {
+                    skillGroup.rotation.y += 0.001;
+                    skillGroup.rotation.x += 0.0005;
+                    stars.rotation.y += 0.0001;
+                }
+                renderer.render(scene, camera);
+            };
+            animate();
+
+            // Resize Handler
+            window.addEventListener('resize', () => {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+        }
+        
+        // --- Role Flip Animation ---
+        const animatedRoleElement = document.getElementById('animated-role');
+        if (animatedRoleElement) {
+            const roles = ["Data Scientist", "ML Engineer", "Data Analyst"];
+            let roleIndex = 0;
+
+            const changeRole = () => {
+                // Animate out the current role's characters
+                Array.from(animatedRoleElement.children).forEach((char, i) => {
+                    setTimeout(() => {
+                        char.classList.add('animate-out');
+                    }, i * 40); // Staggered exit
+                });
+
+                // After the exit animation, set up the new role to animate in
+                setTimeout(() => {
+                    roleIndex = (roleIndex + 1) % roles.length;
+                    const nextRole = roles[roleIndex];
+                    animatedRoleElement.innerHTML = ''; // Clear old characters
+
+                    nextRole.split('').forEach((char, i) => {
+                        const span = document.createElement('span');
+                        span.className = 'char animate-in';
+                        // Use a non-breaking space for spaces to maintain layout
+                        span.textContent = char === ' ' ? '\u00A0' : char; 
+                        span.style.animationDelay = `${i * 40}ms`; // Staggered entrance
+                        animatedRoleElement.appendChild(span);
+                    });
+                }, 800); // Delay should be enough for the out animation to complete
+            };
+
+            // Initially display the first role without animation
+            roles[0].split('').forEach((char) => {
+                const span = document.createElement('span');
+                span.className = 'char';
+                span.textContent = char === ' ' ? '\u00A0' : char;
+                animatedRoleElement.appendChild(span);
+            });
+            
+            // Start the animation cycle
+            setInterval(changeRole, 4000); // Change role every 4 seconds
+        }
+
+    </script>
+</body>
+</html>
+
